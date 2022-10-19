@@ -22,7 +22,7 @@ if __name__ == '__main__':
         if item.get('completed'):
             completed_tasks += 1
 
-    print("Employee {} is done with tasks ({}/{}):"
+    print("Employee {} is done with tasks({}/{}):"
           .format(user_response.get('name'),
                   completed_tasks, total_tasks))
     for todo in todos_response:
