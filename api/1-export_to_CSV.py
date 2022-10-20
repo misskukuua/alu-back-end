@@ -27,6 +27,7 @@ if __name__ == '__main__':
         todo_title = todo.get('title')
         todo_status = todo.get('completed')
         with open(str(user_id) + '.csv', 'w') as file:
-            file.write('"' + str(user_id) + '",' + '"' + user_name +
-                       '",' + '"' + str(todo_status) + '",' +
-                       '"' + todo_title + '"' + "\n")
+            [file.write('"' + str(user_id) + '",' + '"' + user_name +
+                        '",' + '"' + str(todo_status) + '",' +
+                        '"' + todo_title + '"' + "\n")
+             for todo in todos_response]
