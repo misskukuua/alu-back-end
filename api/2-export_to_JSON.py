@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 
 """Export to JSON"""
-import requests
+import json
 from sys import argv
+
+import requests
 
 if __name__ == '__main__':
     employee_id = argv[1]
@@ -23,12 +25,12 @@ if __name__ == '__main__':
     user_id = str(employee_id)
     user_name = user_response.get('username')
 
-    for todo in todos_response:
-        todo_title = todo.get('title')
-        todo_status = todo.get('completed')
-        with open(str(user_id) + '.json', 'w') as file:
-            [file.write('{' + '"' + str(user_id) + '":' + '[{' + '"task":' +
-                        '"' + todo_title + '",' + '"completed":' +
-                        '"' + str(todo_status) + '",' + '"username":' +
-                        '"' + user_name + '"' + '}]' + '}' + "\n")
-             for todo in todos_response]
+    todos_information = [
+        dict(zip(["task", "completed", "username"],
+                 [task["title"], task["completed"], user_name]))
+        for task in todos_response]
+
+    user_dict = {str(employee_id): todos_information}
+    with open(str(user_id) + '.json', "w") as file:
+        file.write(json.dumps(user_dict))
+
