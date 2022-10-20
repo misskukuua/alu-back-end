@@ -4,10 +4,6 @@
 import requests
 from sys import argv
 
-import task
-from pygments.lexers import q
-
-
 if __name__ == '__main__':
     employee_id = argv[1]
     user_url = "https://jsonplaceholder.typicode.com/users/{}" \
