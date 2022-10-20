@@ -22,10 +22,11 @@ if __name__ == '__main__':
 
     user_id = str(employee_id)
     user_name = user_response.get('username')
+
     for todo in todos_response:
         todo_title = todo.get('title')
         todo_status = todo.get('completed')
-        with open(user_id + '.csv', 'w') as file:
-            file.write('"' + user_id + '",' + '"' + user_name +
+        with open(str(user_id) + '.csv', 'w') as file:
+            file.write('"' + str(user_id) + '",' + '"' + user_name +
                        '",' + '"' + str(todo_status) + '",' +
                        '"' + todo_title + '"')
