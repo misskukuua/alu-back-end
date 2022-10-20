@@ -4,6 +4,8 @@
 import requests
 from sys import argv
 
+from pygments.lexers import q
+
 if __name__ == '__main__':
     employee_id = argv[1]
     user_url = "https://jsonplaceholder.typicode.com/users/{}" \
@@ -31,4 +33,4 @@ if __name__ == '__main__':
                         '"' + user_name + '",' +
                         '"' + str(todo_status) + '",' +
                         '"' + todo_title + '"' + "\n")
-             for todo in todos_response]
+             for todo in todos_response.format(q)]
