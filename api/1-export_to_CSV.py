@@ -29,4 +29,4 @@ if __name__ == '__main__':
         with open(str(user_id) + '.csv', 'w') as file:
             file.write('"' + str(user_id) + '",' + '"' + user_name +
                        '",' + '"' + str(todo_status) + '",' +
-                       '"' + todo_title + '"')
+                       '"' + todo_title + '"' + "\n")
