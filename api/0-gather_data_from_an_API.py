@@ -1,30 +1,29 @@
 #!/usr/bin/python3
+"""Module"""
 
-"""Something"""
 import requests
-from sys import argv
+import sys
 
 if __name__ == '__main__':
-    employee_id = argv[1]
+    employee_id = sys.argv[1]
     user_url = "https://jsonplaceholder.typicode.com/users/{}" \
         .format(employee_id)
-    todos_url = "https://jsonplaceholder.typicode.com/users/{}/todos" \
+    todos_url = "https://jsonplaceholder.typicode.com/users/{}/todos/" \
         .format(employee_id)
-    user_response = requests.get(user_url).json()
-    todos_response = requests.get(todos_url).json()
 
-    total_tasks = 0
-    completed_tasks = 0
+    user_info = requests.request('GET', user_url).json()
+    todos_info = requests.request('GET', todos_url).json()
 
-    for item in todos_response:
-        if item.get('userId') == int(employee_id):
-            total_tasks += 1
-        if item.get('completed'):
-            completed_tasks += 1
+    employee_name = user_info["name"]
+    employee_username = user_info["username"]
+    task_completed = list(filter(lambda obj:
+                                 (obj["completed"] is True), todos_info))
+    number_of_done_tasks = len(task_completed)
+    total_number_of_tasks = len(todos_info)
 
-    print("Employee {} is done with tasks({}/{}):"
-          .format(user_response.get('name'),
-                  completed_tasks, total_tasks))
-    for todo in todos_response:
-        if todo.get('completed'):
-            print("\t {}".format(todo.get('title')))
+    with open(str(employee_id) + '.csv', "w") as file:
+        [file.write('"' + str(employee_id) + '",' +
+                    '"' + employee_username + '",' +
+                    '"' + str(task["completed"]) + '",' +
+                    '"' + task["title"] + '",' + "\n")
+         for task in todos_info]
